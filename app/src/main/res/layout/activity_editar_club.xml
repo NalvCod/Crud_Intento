@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditarClub">
+
+    <ImageView
+        android:id="@+id/escudo"
+        android:layout_width="160dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/fotogaleria"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/nombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/escudo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:hint="Nombre del club"
+        android:textAlignment="center"
+        android:layout_margin="30dp"
+        />
+
+    <EditText
+        android:id="@+id/ciudad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/nombre"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:hint="Ciudad del club"
+        android:textAlignment="center"
+        android:layout_margin="30dp"
+        />
+
+    <EditText
+        android:id="@+id/fundacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ciudad"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:inputType="number"
+        android:hint="Año de fundación"
+        android:textAlignment="center"
+        android:layout_margin="30dp"
+        />
+
+    <Button
+        android:id="@+id/boton_modificar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/fundacion"
+        android:layout_margin="30dp"
+        android:backgroundTint="@color/NBA_BLUE"
+        android:text="Modificar Club"
+        android:textColor="@color/white"
+        />
+    <Button
+        android:id="@+id/boton_volver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/boton_modificar"
+        android:layout_margin="30dp"
+        android:backgroundTint="@color/NBA_RED"
+        android:text="Volver"
+        android:textColor="@color/white"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
