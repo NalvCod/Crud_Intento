@@ -2,6 +2,7 @@ package com.example.firabasecrud
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -54,7 +55,7 @@ class CrearSerie : AppCompatActivity() {
         database = FirebaseDatabase.getInstance().reference
 
         //AppWriteStorage
-        id_projecto ="675b02ce0004439f752e"
+        id_projecto ="675b01650006c779a329"
         id_bucket = "675b02ce0004439f752e"
 
         val client = Client().setEndpoint("https://cloud.appwrite.io/v1").setProject(id_projecto)
@@ -71,8 +72,9 @@ class CrearSerie : AppCompatActivity() {
             if (nombre.text.isEmpty() || fechaInicio.text.isEmpty()
                 || fechaFin.text.isEmpty() || genero.text.isEmpty() || url_imagen == null){
                 Toast.makeText(this, "Rellena todos los campos o selecione una imagen", Toast.LENGTH_SHORT).show()
-            } else if (fechaInicio.text.toString().toInt() > 2024 || fechaInicio.text.toString().toInt() < 1900 || fechaFin.text.toString()
-                    .toInt() < fechaInicio.text.toString().toInt()) {
+            } else if (fechaFin.text.toString().toInt() < fechaInicio.text.toString().toInt()){
+                Toast.makeText(this, "Año de fin no válido", Toast.LENGTH_SHORT).show()
+            }else if (fechaInicio.text.toString().toInt() > 2024 || fechaInicio.text.toString().toInt() < 1900) {
                 Toast.makeText(this, "Año de inicio no válido", Toast.LENGTH_SHORT).show()
             } else if (Util.existeSerie(lista_series, nombre.text.toString())) {
                 Toast.makeText(this, "La serie ya existe", Toast.LENGTH_SHORT).show()
@@ -93,14 +95,16 @@ class CrearSerie : AppCompatActivity() {
                         }
                         InputFile.fromFile(tempFile) // tenemos un archivo temporal con la imagen
                     }
+
                     val identificadorFile = ID.unique()
                     val file = storage.createFile(
                         bucketId = id_bucket,
                         fileId = identificadorFile,
                         file = fileImpostor,
                     )
+                    Log.d("ESTOY AQUI", "HOLAAAAA")
 
-                    var imagen = "https://cloud.appwrite.io/v1/storage/buckets/$id_bucket/files/$identificadorFile/preview?project=$id_projecto"
+                    var imagen = "https://cloud.appwrite.io/v1/storage/buckets/$id_bucket/files/$identificadorFile/preview?project=$id_projecto&output=jpg"
 
                     val serie = Serie(
                         identificador_serie,
