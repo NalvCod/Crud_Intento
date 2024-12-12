@@ -13,6 +13,12 @@
         android:theme="@style/Theme.FirabaseCRUD"
         tools:targetApi="31">
         <activity
+            android:name=".EditarSerie"
+            android:exported="false" />
+        <activity
+            android:name=".CrearSerie"
+            android:exported="false" />
+        <activity
             android:name=".EditarClub"
             android:exported="false" />
         <activity

@@ -14,40 +14,41 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.tasks.await
 
-class Util {
+class UtilBackup {
     companion object {
 
-        fun existeSerie(series: List<Serie>, nombre: String): Boolean {
-            return series.any { it.nombre!!.lowercase() == nombre.lowercase() }
+        fun existeClub(clubs: List<Club>, nombre: String): Boolean {
+            return clubs.any { it.nombre!!.lowercase() == nombre.lowercase() }
         }
 
 
-        fun obtenerListaSeries(db_ref: DatabaseReference, contexto: Context): MutableList<Serie> {
-            val lista_series = mutableListOf<Serie>()
+        fun obtenerListaCLubs(db_ref: DatabaseReference, contexto: Context): MutableList<Club> {
+            val lista_clubs = mutableListOf<Club>()
 
-            db_ref.child("nba").child("clubs").addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    snapshot.children.forEach { serie ->
-                        val serie_act = serie.getValue(Serie::class.java)
-                        lista_series.add(serie_act!!)
+            db_ref.child("nba").child("clubs")
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        snapshot.children.forEach { club ->
+                            val club_actual = club.getValue(Club::class.java)
+                            lista_clubs.add(club_actual!!)
+                        }
                     }
-                }
 
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(contexto, "Error al obtener los clubs", Toast.LENGTH_SHORT)
-                        .show()
-                }
+                    override fun onCancelled(error: DatabaseError) {
+                        Toast.makeText(contexto, "Error al obtener los clubs", Toast.LENGTH_SHORT)
+                            .show()
+                    }
 
-            })
-            return lista_series
+                })
+            return lista_clubs
         }
 
-        fun escribirSerie(db_ref: DatabaseReference, id: String, serie: Serie) {
-            db_ref.child("nba").child("clubs").child(id).setValue(serie)
+        fun escribirClub(db_ref: DatabaseReference, id: String, club: Club) {
+            db_ref.child("nba").child("clubs").child(id).setValue(club)
         }
 
-
-        suspend fun guardarImagen(almacen: StorageReference, id: String, escudo: Uri): String {
+        //LO CAMBIAREMOS
+        suspend fun guardarEscudo(almacen: StorageReference, id: String, escudo: Uri): String {
             var urlAlmacen: Uri
             urlAlmacen =
                 almacen.child("escudos").child(id).putFile(escudo).await()
@@ -56,9 +57,9 @@ class Util {
             return urlAlmacen.toString()
         }
 
-        fun toastCorrutina(activity: AppCompatActivity, contexto: Context, texto: String) {
-            activity.runOnUiThread {
-                Toast.makeText(contexto, texto, Toast.LENGTH_SHORT).show()
+        fun tostadaCorrutina(activity: AppCompatActivity, contexto: Context, texto: String){
+            activity.runOnUiThread{
+                Toast.makeText(contexto,texto, Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -80,7 +81,5 @@ class Util {
                 .error(R.drawable.error_404)
             return options
         }
-
-
     }
 }

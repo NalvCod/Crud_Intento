@@ -10,7 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 
 
 
-private lateinit var botonCrear: Button
+private lateinit var anadir: Button
 private lateinit var botonListar: Button
 
 
@@ -25,20 +25,28 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-
-        botonCrear = findViewById(R.id.crear)
+        anadir = findViewById(R.id.crear)
         botonListar = findViewById(R.id.listar)
 
 
-        botonCrear.setOnClickListener {
-            val intent = Intent(this, CrearClub::class.java)
+        anadir.setOnClickListener {
+            val intent = Intent(this, CrearSerie::class.java)
             startActivity(intent)
         }
 
         botonListar.setOnClickListener {
-            val intent = Intent(this, VerClubs::class.java)
+            val intent = Intent(this, Serie::class.java)
             startActivity(intent)
         }
+
+//        referencia = FirebaseDatabase.getInstance().getReference()
+//        var identificador = referencia.child("series").push().key!!
+//
+//        var nuevaSerie = Serie("1234", "Shingeki", "2012 a 2023")
+//
+//        referencia.child("series").child(identificador).push()
+//            .setValue(nuevaSerie)
+
 
     }
 }
