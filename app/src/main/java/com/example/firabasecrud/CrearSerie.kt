@@ -2,6 +2,7 @@ package com.example.firabasecrud
 
 import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -83,24 +84,32 @@ class CrearSerie : AppCompatActivity() {
                 val identificador_serie = database.child("null").child("series").push().key
 
                 GlobalScope.launch(Dispatchers.IO) {
+                    var mimeType = ""
+                    var nombreArchivo = ""
                     val inputStream = contentResolver.openInputStream(url_imagen!!)
-                    val identificadorAppWrite = identificador_serie!!.substring(1, 20)
-                    //var escudo = Util.guardarEscudo(storage,identificador_club!!,url_escudo!!)
-                    val fileImpostor = inputStream.use { input ->
-                        val tempFile = kotlin.io.path.createTempFile(identificadorAppWrite).toFile()
-                        if (input != null) {
-                            tempFile.outputStream().use { output ->
-                                input.copyTo(output)
+                    val aux = contentResolver.query(url_imagen!!, null, null, null, null)
+                    aux.use {
+                        if (it!!.moveToFirst()) {
+                            // Obtener el nombre del archivo
+                            val nombreIndex = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                            if (nombreIndex != -1) {
+                                nombreArchivo = it.getString(nombreIndex)
                             }
                         }
-                        InputFile.fromFile(tempFile) // tenemos un archivo temporal con la imagen
                     }
+                    mimeType = contentResolver.getType(url_imagen!!).toString()
+
+                    val fileInput = InputFile.fromBytes(
+                        bytes = inputStream?.readBytes() ?: byteArrayOf(),
+                        filename = nombreArchivo,
+                        mimeType = mimeType
+                    )
 
                     val identificadorFile = ID.unique()
                     val file = storage.createFile(
                         bucketId = id_bucket,
                         fileId = identificadorFile,
-                        file = fileImpostor,
+                        file = fileInput,
                     )
                     Log.d("ESTOY AQUI", "HOLAAAAA")
 
@@ -114,7 +123,7 @@ class CrearSerie : AppCompatActivity() {
                         imagen,
                         identificadorFile
                     )
-                    Util.escribirSerie(database, identificador_serie, serie)
+                    Util.escribirSerie(database, identificador_serie.toString(), serie)
 
                     Util.toastCorrutina(
                         this@CrearSerie, applicationContext,

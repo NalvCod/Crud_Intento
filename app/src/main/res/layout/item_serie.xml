@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:srcCompat="@tools:sample/avatars"
+        android:paddingBottom="4dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/item_miniatura"
+            android:layout_width="120dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="4dp"
+            tools:srcCompat="@tools:sample/avatars"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/item_nombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="16dp"
+            android:text="Nombre de la serie"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/item_miniatura"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/fecha_estreno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="07/08/1999"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/item_miniatura"
+            app:layout_constraintTop_toBottomOf="@id/item_nombre" />
+
+
+        <TextView
+            android:id="@+id/generos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="asddfsdfsdf"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/item_miniatura"
+            app:layout_constraintTop_toBottomOf="@id/fecha_estreno" />
+
+
+        <ImageView
+            android:id="@+id/editar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/generos"
+            app:layout_constraintEnd_toStartOf="@+id/borrar"
+            tools:srcCompat="@tools:sample/avatars"
+            android:layout_marginEnd="10dp"/>
+        <ImageView
+            android:id="@+id/borrar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:srcCompat="@tools:sample/avatars"
+            app:layout_constraintTop_toTopOf="@id/generos"
+            android:layout_marginEnd="20dp"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         botonListar.setOnClickListener {
-            val intent = Intent(this, Serie::class.java)
+            val intent = Intent(this, VerSeries::class.java)
             startActivity(intent)
         }
 

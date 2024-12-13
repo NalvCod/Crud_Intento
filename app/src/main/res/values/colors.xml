@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="NBA_BLUE">#1d4289</color>
     <color name="NBA_RED">#c80f2e</color>
+    <color name="grisFondo">#2A2A2A</color>
+    <color name="grisCard">#444444</color>
 </resources>
