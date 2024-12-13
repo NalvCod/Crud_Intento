@@ -21,7 +21,7 @@ class VerSeries : AppCompatActivity() {
 
     private lateinit var volver: ImageView
     private lateinit var recycler: RecyclerView
-    private lateinit var lista:MutableList<Serie>
+    private lateinit var lista: MutableList<Serie>
     private lateinit var db_ref: DatabaseReference
     private lateinit var adaptador: SerieAdaptador
 
@@ -38,30 +38,28 @@ class VerSeries : AppCompatActivity() {
         volver = findViewById(R.id.volver)
         recycler = findViewById(R.id.lista_series)
         lista = mutableListOf()
-        db_ref= FirebaseDatabase.getInstance().reference
-        db_ref.child("nba")
-            .child("clubs")
-            .addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    lista.clear()
-                    snapshot.children.forEach{ hijo: DataSnapshot?->
-                        val pojo_serie=hijo?.getValue(Serie::class.java)
-                        lista.add(pojo_serie!!)
-                    }
-                    //Jugar con esto para demostrar que no es un codigo sincrono
-                    recycler.adapter?.notifyDataSetChanged()
+        db_ref = FirebaseDatabase.getInstance().reference
+        db_ref.child("serie").child("series").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                lista.clear()
+                snapshot.children.forEach { hijo: DataSnapshot? ->
+                    val pojoSerie = hijo?.getValue(Serie::class.java)
+                    lista.add(pojoSerie!!)
                 }
+                //Jugar con esto para demostrar que no es un codigo sincrono
+                recycler.adapter?.notifyDataSetChanged()
+            }
 
-                override fun onCancelled(error: DatabaseError) {
-                    println(error.message)
-                }
-            })
+            override fun onCancelled(error: DatabaseError) {
+                println(error.message)
+            }
+        })
         adaptador = SerieAdaptador(lista)
         recycler.adapter = adaptador
         recycler.setHasFixedSize(true)
-        recycler.layoutManager= LinearLayoutManager(applicationContext)
+        recycler.layoutManager = LinearLayoutManager(applicationContext)
 
-        volver.setOnClickListener(){
+        volver.setOnClickListener() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
