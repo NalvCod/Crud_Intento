@@ -2,6 +2,7 @@ package com.example.firabasecrud
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
@@ -39,14 +40,14 @@ class VerSeries : AppCompatActivity() {
         recycler = findViewById(R.id.lista_series)
         lista = mutableListOf()
         db_ref = FirebaseDatabase.getInstance().reference
-        db_ref.child("serie").child("series").addValueEventListener(object : ValueEventListener {
+        db_ref.child("series").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 lista.clear()
                 snapshot.children.forEach { hijo: DataSnapshot? ->
                     val pojoSerie = hijo?.getValue(Serie::class.java)
                     lista.add(pojoSerie!!)
+                    Log.d("Serie", pojoSerie.toString())
                 }
-                //Jugar con esto para demostrar que no es un codigo sincrono
                 recycler.adapter?.notifyDataSetChanged()
             }
 

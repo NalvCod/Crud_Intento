@@ -25,7 +25,7 @@ class Util {
         fun obtenerListaSeries(db_ref: DatabaseReference, contexto: Context): MutableList<Serie> {
             val lista_series = mutableListOf<Serie>()
 
-            db_ref.child("nba").child("clubs").addValueEventListener(object : ValueEventListener {
+            db_ref.child("series").addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     snapshot.children.forEach { serie ->
                         val serie_act = serie.getValue(Serie::class.java)
@@ -43,14 +43,14 @@ class Util {
         }
 
         fun escribirSerie(db_ref: DatabaseReference, id: String, serie: Serie) {
-            db_ref.child("nba").child("clubs").child(id).setValue(serie)
+            db_ref.child("series").child(id).setValue(serie)
         }
 
 
         suspend fun guardarImagen(almacen: StorageReference, id: String, escudo: Uri): String {
             var urlAlmacen: Uri
             urlAlmacen =
-                almacen.child("escudos").child(id).putFile(escudo).await()
+                almacen.child("imagen").child(id).putFile(escudo).await()
                     .storage.downloadUrl.await()
 
             return urlAlmacen.toString()

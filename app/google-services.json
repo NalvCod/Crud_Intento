@@ -1,52 +1,14 @@
 {
   "project_info": {
-    "project_number": "636387965851",
-    "firebase_url": "https://fir-class-f2d3c-default-rtdb.europe-west1.firebasedatabase.app",
-    "project_id": "fir-class-f2d3c",
-    "storage_bucket": "fir-class-f2d3c.appspot.com"
+    "project_number": "1033352607821",
+    "firebase_url": "https://nahuel-crud-final-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "nahuel-crud-final",
+    "storage_bucket": "nahuel-crud-final.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:636387965851:android:1b9db4a35fdfee9e8c3f3e",
-        "android_client_info": {
-          "package_name": "com.app.personacompose"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCXnezUc3LqHUgszj9h4d0UR_LBwdFpQjw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:636387965851:android:39e3d42be528b86e8c3f3e",
-        "android_client_info": {
-          "package_name": "com.app.primerospasosfirebase"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCXnezUc3LqHUgszj9h4d0UR_LBwdFpQjw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:636387965851:android:54e9c89949e84e488c3f3e",
+        "mobilesdk_app_id": "1:1033352607821:android:7c1c1acdacaa86afe54404",
         "android_client_info": {
           "package_name": "com.example.firabasecrud"
         }
@@ -54,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCXnezUc3LqHUgszj9h4d0UR_LBwdFpQjw"
+          "current_key": "AIzaSyCQAlEGEzm5BjPAsJcmcKw1ScC3lfoA7_E"
         }
       ],
       "services": {
@@ -65,53 +27,15 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:636387965851:android:44135f65dc4c9d688c3f3e",
+        "mobilesdk_app_id": "1:1033352607821:android:59c62fa6973c685be54404",
         "android_client_info": {
-          "package_name": "com.example.firebase"
+          "package_name": "com.example.nahuelcrudfinal"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCXnezUc3LqHUgszj9h4d0UR_LBwdFpQjw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:636387965851:android:a2dc7587ef3b11f38c3f3e",
-        "android_client_info": {
-          "package_name": "com.example.firebaseprimerospasos"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCXnezUc3LqHUgszj9h4d0UR_LBwdFpQjw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:636387965851:android:a68eee2861c4af9c8c3f3e",
-        "android_client_info": {
-          "package_name": "com.example.prueba2"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCXnezUc3LqHUgszj9h4d0UR_LBwdFpQjw"
+          "current_key": "AIzaSyCQAlEGEzm5BjPAsJcmcKw1ScC3lfoA7_E"
         }
       ],
       "services": {

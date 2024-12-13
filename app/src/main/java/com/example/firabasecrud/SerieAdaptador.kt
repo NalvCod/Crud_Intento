@@ -27,14 +27,14 @@ class SerieAdaptador (private val lista_series: MutableList<Serie>) : RecyclerVi
         val nombre: TextView = itemView.findViewById(R.id.item_nombre)
         val genero : TextView = itemView.findViewById(R.id.genero)
         val fecha_estreno: TextView = itemView.findViewById(R.id.fecha_estreno)
-        val fecha_fin: TextView = itemView.findViewById(R.id.fecha_fin)
+        val fecha_fin: TextView = itemView.findViewById(R.id.fecha_finalizacion)
         val editar: ImageView = itemView.findViewById(R.id.editar)
         val borrar: ImageView = itemView.findViewById(R.id.borrar)
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SerieViewHolder {
-        val vista_item = LayoutInflater.from(parent.context).inflate(R.layout.item_club,parent,false)
+        val vista_item = LayoutInflater.from(parent.context).inflate(R.layout.item_serie,parent,false)
         contexto=parent.context
         return SerieViewHolder(vista_item)
     }
@@ -47,6 +47,7 @@ class SerieAdaptador (private val lista_series: MutableList<Serie>) : RecyclerVi
         holder.nombre.text = serie_actual.nombre
         holder.fecha_estreno.text = serie_actual.fechaInicio
         holder.fecha_fin.text = serie_actual.fechaFin
+        holder.genero.text = serie_actual.genero
 
         val URL:String?=when(serie_actual.url_imagen){
             ""->null //Para que active imagen de fallback
@@ -61,8 +62,8 @@ class SerieAdaptador (private val lista_series: MutableList<Serie>) : RecyclerVi
             .into(holder.miniatura)
 
         holder.editar.setOnClickListener{
-            val intent= Intent(contexto,EditarClub::class.java)
-            intent.putExtra("club",serie_actual)
+            val intent= Intent(contexto,EditarSerie::class.java)
+            intent.putExtra("serie",serie_actual)
             contexto.startActivity(intent)
         }
 
@@ -85,9 +86,8 @@ class SerieAdaptador (private val lista_series: MutableList<Serie>) : RecyclerVi
             }
 
             lista_filtrada.removeAt(position)
-            //storage_ref.child("nba").child("clubs").child(club_actual.id!!).delete()
-            db_ref.child("nba").child("clubs").child(serie_actual.id!!).removeValue()
-            Toast.makeText(contexto,"Club borrado", Toast.LENGTH_SHORT).show()
+            db_ref.child("serie").child(serie_actual.id!!).removeValue()
+            Toast.makeText(contexto,"Serie eliminada", Toast.LENGTH_SHORT).show()
             notifyItemRemoved(position)
             notifyItemRangeChanged(position,lista_filtrada.size)
 

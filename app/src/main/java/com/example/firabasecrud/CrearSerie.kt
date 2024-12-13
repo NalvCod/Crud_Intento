@@ -120,8 +120,9 @@ class CrearSerie : AppCompatActivity() {
                         nombre.text.toString(),
                         fechaInicio.text.toString(),
                         fechaFin.text.toString(),
+                        genero.text.toString(),
                         imagen,
-                        identificadorFile
+                        identificadorFile,
                     )
                     Util.escribirSerie(database, identificador_serie.toString(), serie)
 
