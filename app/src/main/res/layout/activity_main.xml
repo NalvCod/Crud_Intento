@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
+    android:background="@drawable/fondocine"
     >
 
     <ScrollView
@@ -15,32 +16,47 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="40dp">
+            android:paddingBottom="60dp">
 
             <ImageView
                 android:id="@+id/icono"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/cardView"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:src="@drawable/logocine" />
+
+            <TextView
+                android:id="@+id/tituloApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="40dp"
+                android:text="JoseCine"
+                app:layout_constraintTop_toBottomOf="@+id/icono"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+            </TextView>
+
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="20dp"
-                app:cardCornerRadius="30dp"
+                app:cardCornerRadius="20dp"
+                android:elevation="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/icono">
+                app:layout_constraintTop_toBottomOf="@+id/tituloApp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="#3D3D3D">
 
                     <TextView
                         android:id="@+id/titulo"
@@ -48,6 +64,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="Elige una opción"
+                        android:textColor="#E0E0E0"
                         android:textSize="20dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +76,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="40dp"
-                        android:shadowRadius="@integer/material_motion_duration_medium_1"
+                        android:background=" #5C5C5C"
                         android:text="AÑADIR SERIE"
                         android:textColor="@color/white"
                         android:textSize="20dp"
@@ -72,6 +89,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="40dp"
+                        android:background=" #5C5C5C"
                         android:text="VER SERIES"
                         android:textColor="@color/white"
                         android:textSize="20dp"

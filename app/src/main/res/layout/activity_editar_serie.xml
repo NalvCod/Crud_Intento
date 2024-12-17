@@ -5,39 +5,46 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditarSerie">
+    tools:context=".EditarSerie"
+    android:background="@drawable/fondocine">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/barraSuperior"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/design_default_color_secondary_variant"
+
+    <ImageView
+        android:id="@+id/volver"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="15dp"
+        android:src="@drawable/baseline_arrow_back_ios_24"
+        app:layout_constraintBottom_toBottomOf="@+id/titulo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/titulo" />
+
+
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Editar serie"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toTopOf="@id/card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <ImageView
-            android:id="@+id/volver"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars"
-            android:layout_marginStart="20dp"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        android:layout_marginTop="20dp" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/barraSuperior"
+        app:layout_constraintTop_toBottomOf="@id/titulo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"
+        android:backgroundTint="#3D3D3D"
         android:layout_marginHorizontal="20dp"
         app:cardCornerRadius="60dp"
-        android:elevation="10dp">
+        android:elevation="10dp"
+        android:layout_marginTop="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -50,6 +57,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
                 android:hint="Nombre de la serie"
+                android:textColor="@color/white"
+                android:textColorHint="#B0B0B0"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -62,6 +71,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/fecha_fin"
                 android:hint="Inicio"
+                android:textColor="@color/white"
+                android:textColorHint="#B0B0B0"
                 android:layout_margin="30dp"
                 />
 
@@ -71,6 +82,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
                 android:hint="Finalización"
+                android:textColor="@color/white"
+                android:textColorHint="#B0B0B0"
                 app:layout_constraintBottom_toBottomOf="@+id/fecha_inicio"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/fecha_inicio"
@@ -82,6 +95,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
                 android:hint="Género"
+                android:textColor="@color/white"
+                android:textColorHint="#B0B0B0"
                 app:layout_constraintEnd_toEndOf="@+id/nombre"
                 app:layout_constraintStart_toStartOf="@+id/nombre"
                 app:layout_constraintTop_toBottomOf="@id/fecha_inicio" />
@@ -109,8 +124,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
-        android:background="@color/design_default_color_secondary_variant"
+        android:background="#3D3D3D"
         android:text="Modificar"
+        app:layout_constraintCircleRadius="20dp"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/card" />

@@ -5,24 +5,26 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CrearSerie">
+    tools:context=".CrearSerie"
+    android:background="@drawable/fondocine"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/barraSuperior"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/design_default_color_secondary_variant"
+        android:layout_height="50dp"
+        android:background="#3D3D3D"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
             android:id="@+id/volver"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars"
+            android:src="@drawable/baseline_arrow_back_ios_24"
             android:layout_marginStart="20dp"/>
 
         <TextView
@@ -32,9 +34,10 @@
             android:layout_marginStart="10dp"
             android:text="Añadir serie"
             android:textColor="@color/white"
-            android:textSize="30dp"
+            android:textSize="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/volver"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -46,6 +49,7 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="30dp"
         android:elevation="10dp"
+        android:backgroundTint="#3D3D3D"
         app:cardCornerRadius="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,6 +65,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
+                android:textColor="@color/white"
+                android:textColorHint="#B0B0B0"
                 android:hint="Nombre de la serie"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -72,6 +78,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
                 android:hint="Inicio"
+                android:textColor="@color/white"
+                android:textColorHint="#B0B0B0"
                 app:layout_constraintEnd_toStartOf="@id/fecha_fin"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/nombre" />
@@ -82,6 +90,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
                 android:hint="Finalización"
+                android:textColor="@color/white"
+                android:textColorHint="#B0B0B0"
                 app:layout_constraintBottom_toBottomOf="@+id/fecha_inicio"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/fecha_inicio"
@@ -93,23 +103,25 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
                 android:hint="Género"
+                android:textColor="@color/white"
+                android:textColorHint="#B0B0B0"
                 app:layout_constraintEnd_toEndOf="@+id/nombre"
                 app:layout_constraintStart_toStartOf="@+id/nombre"
                 app:layout_constraintTop_toBottomOf="@id/fecha_inicio" />
 
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/anadir_imagen"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="180dp"
-                android:layout_margin="30dp"
+                android:src="@drawable/cine"
+                android:adjustViewBounds="true"
                 android:text="Añadir imagen"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/genero"
-                android:src="@drawable/cine" />
+                app:layout_constraintEnd_toEndOf="@+id/nombre"
+                app:layout_constraintStart_toStartOf="@+id/nombre"
+                app:layout_constraintTop_toBottomOf="@+id/genero" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -120,7 +132,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
-        android:background="@color/design_default_color_secondary_variant"
+        android:background="#3D3D3D"
         android:text="Añadir serie"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
