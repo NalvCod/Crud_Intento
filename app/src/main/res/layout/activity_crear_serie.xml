@@ -110,6 +110,14 @@
                 app:layout_constraintTop_toBottomOf="@id/fecha_inicio" />
 
 
+            <RatingBar
+                android:id="@+id/puntuacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/genero"
+                app:layout_constraintTop_toBottomOf="@id/genero"
+                android:layout_marginTop="20dp"/>
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/anadir_imagen"
                 android:layout_width="0dp"
@@ -121,7 +129,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/nombre"
                 app:layout_constraintStart_toStartOf="@+id/nombre"
-                app:layout_constraintTop_toBottomOf="@+id/genero" />
+                app:layout_constraintTop_toBottomOf="@+id/puntuacion" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

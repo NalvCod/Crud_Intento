@@ -4,11 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.CheckBox
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.RatingBar
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
@@ -25,6 +29,8 @@ class VerSeries : AppCompatActivity() {
     private lateinit var lista: MutableList<Serie>
     private lateinit var db_ref: DatabaseReference
     private lateinit var adaptador: SerieAdaptador
+    private lateinit var ordenar: CheckBox
+    private lateinit var buscar: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +46,33 @@ class VerSeries : AppCompatActivity() {
         recycler = findViewById(R.id.lista_series)
         lista = mutableListOf()
         db_ref = FirebaseDatabase.getInstance().reference
+        ordenar = findViewById(R.id.ordenar_ranking)
+        buscar = findViewById(R.id.buscar_serie)
+
+        var lista_filtrada = mutableListOf<Serie>()
+
+        ordenar.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                lista_filtrada = lista.sortedByDescending { it.puntuacion }.toMutableList()
+            } else {
+                lista_filtrada = lista
+            }
+            adaptador = SerieAdaptador(lista_filtrada)
+            adaptador.notifyDataSetChanged()
+            recycler.adapter=adaptador
+        }
+
+        buscar.doOnTextChanged{
+            text, _, _, _ ->
+            lista_filtrada = lista.filter { serie ->
+                serie.nombre!!.contains(text.toString(), ignoreCase = true)
+            }.toMutableList()
+            adaptador = SerieAdaptador(lista_filtrada)
+            recycler.adapter=adaptador
+        }
+
+
+
         db_ref.child("series").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 lista.clear()
@@ -64,8 +97,5 @@ class VerSeries : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
-
     }
-
-
 }

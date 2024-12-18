@@ -1,5 +1,6 @@
 package com.example.firabasecrud
 
+import android.media.Rating
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
@@ -7,6 +8,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +30,7 @@ class CrearSerie : AppCompatActivity() {
     private lateinit var anadir : Button
     private lateinit var volver : ImageView
     private lateinit var anadirImagen : ImageView
+    private lateinit var puntuacion : RatingBar
 
     //Firebase
     private lateinit var database: DatabaseReference
@@ -51,6 +54,7 @@ class CrearSerie : AppCompatActivity() {
         anadir = findViewById(R.id.modificar)
         volver = findViewById(R.id.volver)
         anadirImagen = findViewById(R.id.anadir_imagen)
+        puntuacion = findViewById(R.id.puntuacion)
 
         //firebase
         database = FirebaseDatabase.getInstance().reference
@@ -123,6 +127,7 @@ class CrearSerie : AppCompatActivity() {
                         genero.text.toString(),
                         imagen,
                         identificadorFile,
+                        puntuacion.rating
                     )
                     Util.escribirSerie(database, identificador_serie.toString(), serie)
 

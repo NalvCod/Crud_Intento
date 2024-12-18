@@ -86,35 +86,37 @@
 
         <ImageView
             android:id="@+id/editar"
-            android:layout_width="29dp"
-            android:layout_height="29dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/genero"
-            app:layout_constraintEnd_toStartOf="@+id/borrar"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="10dp"
             android:src="@drawable/edit"
-            android:layout_marginEnd="10dp"/>
+            app:layout_constraintBottom_toBottomOf="@+id/item_nombre"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/borrar"
+            app:layout_constraintTop_toTopOf="@+id/item_nombre" />
+
         <ImageView
             android:id="@+id/borrar"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="20dp"
             android:src="@drawable/baseline_delete_outline_24"
-            app:layout_constraintTop_toTopOf="@id/genero"
-            android:layout_marginEnd="20dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/editar" />
 
         <androidx.appcompat.widget.AppCompatRatingBar
             android:id="@+id/item_rating"
+            style="@style/RatingBarSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:numStars="5"
+            android:progressTint="#FFFFFF"
             android:rating="0"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="15dp"
+            android:isIndicator="true"
+            android:progressBackgroundTint="@color/grisCard"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/editar"
-            app:layout_constraintStart_toEndOf="@id/item_miniatura"
             app:layout_constraintStart_toStartOf="@+id/genero"
-            app:layout_constraintTop_toBottomOf="@id/genero" />
+            app:layout_constraintTop_toBottomOf="@+id/genero"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +29,7 @@ class SerieAdaptador (private val lista_series: MutableList<Serie>) : RecyclerVi
         val genero : TextView = itemView.findViewById(R.id.genero)
         val fecha_estreno: TextView = itemView.findViewById(R.id.fecha_estreno)
         val fecha_fin: TextView = itemView.findViewById(R.id.fecha_finalizacion)
+        val puntuacion: RatingBar = itemView.findViewById(R.id.item_rating)
         val editar: ImageView = itemView.findViewById(R.id.editar)
         val borrar: ImageView = itemView.findViewById(R.id.borrar)
 
@@ -48,6 +50,7 @@ class SerieAdaptador (private val lista_series: MutableList<Serie>) : RecyclerVi
         holder.fecha_estreno.text = serie_actual.fechaInicio
         holder.fecha_fin.text = serie_actual.fechaFin
         holder.genero.text = serie_actual.genero
+        holder.puntuacion.rating = serie_actual.puntuacion
 
         val URL:String?=when(serie_actual.url_imagen){
             ""->null //Para que active imagen de fallback
