@@ -175,6 +175,7 @@ class EditarSerie : AppCompatActivity() {
                             nombre.text.toString(),
                             fecha_inicio.text.toString(),
                             fecha_fin.text.toString(),
+                            genero.text.toString(),
                             imagen,
                             serie.id_imagen
                         )
