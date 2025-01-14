@@ -53,7 +53,7 @@ class VerSeries : AppCompatActivity() {
 
         ordenar.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                lista_filtrada = lista.sortedByDescending { it.puntuacion }.toMutableList()
+                lista_filtrada = lista.sortedBy { it.puntuacion }.toMutableList()
             } else {
                 lista_filtrada = lista
             }

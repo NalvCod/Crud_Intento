@@ -76,14 +76,18 @@ class CrearSerie : AppCompatActivity() {
             //En caso de que esté algo vacío
             if (nombre.text.isEmpty() || fechaInicio.text.isEmpty()
                 || fechaFin.text.isEmpty() || genero.text.isEmpty() || url_imagen == null){
-                Toast.makeText(this, "Rellena todos los campos o selecione una imagen", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show()
             } else if (fechaFin.text.toString().toInt() < fechaInicio.text.toString().toInt()){
                 Toast.makeText(this, "Año de fin no válido", Toast.LENGTH_SHORT).show()
             }else if (fechaInicio.text.toString().toInt() > 2024 || fechaInicio.text.toString().toInt() < 1900) {
                 Toast.makeText(this, "Año de inicio no válido", Toast.LENGTH_SHORT).show()
             } else if (Util.existeSerie(lista_series, nombre.text.toString())) {
                 Toast.makeText(this, "La serie ya existe", Toast.LENGTH_SHORT).show()
-            } else {
+            } else if (puntuacion.rating.toInt() == 0){
+                Toast.makeText(this, "La puntuación no puede ser de 0", Toast.LENGTH_SHORT).show()
+            }
+
+            else {
 
                 val identificador_serie = database.child("null").child("series").push().key
 

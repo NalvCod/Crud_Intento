@@ -123,17 +123,17 @@ class EditarSerie : AppCompatActivity() {
                     "Rellena todos los campos o selecione una imagen",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else if (fecha_inicio.text.toString().toInt() > 2023 || fecha_inicio.text.toString()
-                    .toInt() < 1900 || fecha_fin.text.toString()
-                    .toInt() < 2025
-            ) {
-                Toast.makeText(this, "Año de fundación no válido", Toast.LENGTH_SHORT).show()
+            } else if (fecha_inicio.text.toString().toInt() > 2025 || fecha_inicio.text.toString()
+                    .toInt() < 1900){
+                Toast.makeText(this, "La fecha de inicio no es válida", Toast.LENGTH_SHORT).show()
             } else if (Util.existeSerie(
                     lista_series,
                     nombre.text.toString()
                 )
             ) {
-                Toast.makeText(this, "Club ya existe", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "La serie ya existe", Toast.LENGTH_SHORT).show()
+            } else if (ratingBar.rating.toInt() == 0){
+                Toast.makeText(this, "La puntuación no puede ser de 0", Toast.LENGTH_SHORT).show()
             } else {
 
                 val identificador_serie = database.child("nba").child("clubs").push().key
@@ -187,16 +187,12 @@ class EditarSerie : AppCompatActivity() {
                     }
                     finish()
                 }
-
             }
 
             volver.setOnClickListener {
                 finish()
             }
-
-
         }
-
     }
 
     private val accesoGaleria = registerForActivityResult(ActivityResultContracts.GetContent())
