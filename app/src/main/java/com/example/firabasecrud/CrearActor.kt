@@ -1,17 +1,14 @@
 package com.example.firabasecrud
 
-import android.media.Rating
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.RatingBar
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.example.firabasecrud.databinding.ActivityCrearActorBinding
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import io.appwrite.Client
@@ -22,15 +19,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class CrearSerie : AppCompatActivity() {
-    private lateinit var nombre : EditText
-    private lateinit var fechaInicio : EditText
-    private lateinit var fechaFin : EditText
-    private lateinit var genero : EditText
-    private lateinit var anadir : Button
-    private lateinit var volver : ImageView
-    private lateinit var anadirImagen : ImageView
-    private lateinit var puntuacion : RatingBar
+class CrearActor : AppCompatActivity() {
+
+    //binding
+    private lateinit var binding: ActivityCrearActorBinding
 
     //Firebase
     private lateinit var database: DatabaseReference
@@ -42,52 +34,44 @@ class CrearSerie : AppCompatActivity() {
     private lateinit var id_projecto: String
     private lateinit var id_bucket: String
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_crear_serie)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_crear_actor)
 
-        nombre = findViewById(R.id.nombre)
-        fechaInicio = findViewById(R.id.fecha_inicio)
-        fechaFin = findViewById(R.id.fecha_fin)
-        genero = findViewById(R.id.genero)
-        anadir = findViewById(R.id.modificar)
-        volver = findViewById(R.id.volver)
-        anadirImagen = findViewById(R.id.anadir_imagen)
-        puntuacion = findViewById(R.id.puntuacion)
+        binding = ActivityCrearActorBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         //firebase
         database = FirebaseDatabase.getInstance().reference
 
         //AppWriteStorage
-        id_projecto ="675b01650006c779a329"
+        id_projecto = "675b01650006c779a329"
         id_bucket = "675b02ce0004439f752e"
 
         val client = Client().setEndpoint("https://cloud.appwrite.io/v1").setProject(id_projecto)
         val storage = Storage(client)
 
-        anadirImagen.setOnClickListener{
+        var lista_actores = Util.obtenerListaSeries(database, this)
+
+        binding.anadirImagen.setOnClickListener {
             accesoGaleria.launch("image/*")
         }
-        var lista_series = Util.obtenerListaSeries(database, this)
-        anadir.setOnClickListener {
-            //Comprobamos que los datos introducidos sean válidos
 
+        binding.anadirActor.setOnClickListener {
             //En caso de que esté algo vacío
-            if (nombre.text.isEmpty() || fechaInicio.text.isEmpty()
-                || fechaFin.text.isEmpty() || genero.text.isEmpty() || url_imagen == null){
+            if (binding.nombre.text.isEmpty() || binding.fechaNacimiento.text.isEmpty() || url_imagen == null) {
                 Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show()
-            } else if (fechaFin.text.toString().toInt() < fechaInicio.text.toString().toInt()){
-                Toast.makeText(this, "Año de fin no válido", Toast.LENGTH_SHORT).show()
-            }else if (fechaInicio.text.toString().toInt() > 2024 || fechaInicio.text.toString().toInt() < 1900) {
-                Toast.makeText(this, "Año de inicio no válido", Toast.LENGTH_SHORT).show()
-            } else if (Util.existeSerie(lista_series, nombre.text.toString())) {
+            } else if (binding.fechaNacimiento.text.toString().substring(0, 4)
+                    .toInt() in 1901..2024
+            ) {
+                Toast.makeText(this, "Año de nacimiento no válido", Toast.LENGTH_SHORT).show()
+            } else if (Util.existeSerie(lista_actores, binding.nombre.text.toString())) {
                 Toast.makeText(this, "La serie ya existe", Toast.LENGTH_SHORT).show()
-            } else if (puntuacion.rating.toInt() == 0){
-                Toast.makeText(this, "La puntuación no puede ser de 0", Toast.LENGTH_SHORT).show()
-            } else {
-
-                val identificador_serie = database.child("null").child("series").push().key
+            }
+            else{
+                //Creamos el actor
+                val identificador_actor = database.child("null").child("actores").push().key
 
                 GlobalScope.launch(Dispatchers.IO) {
                     var mimeType = ""
@@ -119,22 +103,21 @@ class CrearSerie : AppCompatActivity() {
                     )
                     Log.d("ESTOY AQUI", "HOLAAAAA")
 
-                    var imagen = "https://cloud.appwrite.io/v1/storage/buckets/$id_bucket/files/$identificadorFile/preview?project=$id_projecto&output=jpg"
+                    var imagen =
+                        "https://cloud.appwrite.io/v1/storage/buckets/$id_bucket/files/$identificadorFile/preview?project=$id_projecto&output=jpg"
 
-                    val serie = Serie(
-                        identificador_serie,
-                        nombre.text.toString(),
-                        fechaInicio.text.toString(),
-                        fechaFin.text.toString(),
-                        genero.text.toString(),
+                    val actor = Actor(
+                        identificador_actor,
+                        binding.nombre.text.toString(),
+                        binding.fechaNacimiento.text.toString(),
                         imagen,
-                        identificadorFile,
-                        puntuacion.rating
+                        identificadorFile
                     )
-                    Util.escribirSerie(database, identificador_serie.toString(), serie)
+                    Util.escribirActor(database, identificador_actor.toString(), actor)
+
 
                     Util.toastCorrutina(
-                        this@CrearSerie, applicationContext,
+                        this@CrearActor, applicationContext,
                         "Imagen descargada con éxito"
                     )
                 }
@@ -142,13 +125,22 @@ class CrearSerie : AppCompatActivity() {
             }
         }
     }
-
     private val accesoGaleria = registerForActivityResult(ActivityResultContracts.GetContent())
     { uri: Uri? ->
         if (uri != null) {
             url_imagen = uri
-            anadirImagen.setImageURI(url_imagen)
+            binding.anadirImagen.setImageURI(url_imagen)
         }
     }
+
 }
+
+
+
+
+
+
+
+
+
 

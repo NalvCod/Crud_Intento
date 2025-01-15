@@ -21,6 +21,9 @@ class Util {
             return series.any { it.nombre!!.lowercase() == nombre.lowercase() }
         }
 
+        fun existeActor(actores: List<Actor>, nombre:String): Boolean{
+            return actores.any { it.nombre!!.lowercase() == nombre.lowercase() }
+        }
 
         fun obtenerListaSeries(db_ref: DatabaseReference, contexto: Context): MutableList<Serie> {
             val lista_series = mutableListOf<Serie>()
@@ -46,6 +49,9 @@ class Util {
             db_ref.child("series").child(id).setValue(serie)
         }
 
+        fun escribirActor(db_ref: DatabaseReference, id: String, actor: Actor) {
+            db_ref.child("actores").child(id).setValue(actor)
+        }
 
         suspend fun guardarImagen(almacen: StorageReference, id: String, escudo: Uri): String {
             var urlAlmacen: Uri
