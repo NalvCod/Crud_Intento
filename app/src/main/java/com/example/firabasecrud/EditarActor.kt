@@ -12,10 +12,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.bumptech.glide.Glide
 import com.example.firabasecrud.databinding.ActivityEditarActorBinding
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import io.appwrite.Client
 import io.appwrite.ID
 import io.appwrite.models.InputFile
+import io.appwrite.services.Storage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -91,7 +95,7 @@ class EditarActorActivity : AppCompatActivity() {
                     .toInt() in 1901..2024
             ) {
                 Toast.makeText(this, "Año de nacimiento no válido", Toast.LENGTH_SHORT).show()
-            } else if (Util.existeSerie(lista_actores, binding.nombre.text.toString())) {
+            } else if (Util.existeActor(lista_actores, binding.nombre.text.toString())) {
                 Toast.makeText(this, "La serie ya existe", Toast.LENGTH_SHORT).show()
             } else {
                 //Creamos el actor

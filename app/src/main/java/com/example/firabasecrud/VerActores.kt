@@ -30,13 +30,11 @@ class VerActores : AppCompatActivity() {
     private lateinit var db_ref: DatabaseReference
     private lateinit var adaptador: ActorAdaptador
     private var lista: MutableList<Actor> = mutableListOf()
-    private lateinit var volver: ImageView
-    private lateinit var recycler: RecyclerView
-    private lateinit var buscar: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
 
         // Inicializar el binding
         binding = ActivityVerActoresBinding.inflate(layoutInflater)
@@ -49,37 +47,19 @@ class VerActores : AppCompatActivity() {
             insets
         }
 
-        // Inicialización de vistas
-        volver = binding.volver
-        recycler = binding.listaActores
-        ordenar = binding.ordenarRanking
-        buscar = binding.buscarActor
-
         // Lista filtrada para mostrar
         var listaFiltrada = mutableListOf<Actor>()
 
         // Inicialización de la base de datos de Firebase
         db_ref = FirebaseDatabase.getInstance().reference
 
-        // Configuración del botón "ordenar"
-        ordenar.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                listaFiltrada = lista.sortedBy { it.puntuacion }.toMutableList()
-            } else {
-                listaFiltrada = lista
-            }
-            adaptador = ActorAdaptador(listaFiltrada)
-            adaptador.notifyDataSetChanged()
-            recycler.adapter = adaptador
-        }
-
         // Configuración de la barra de búsqueda
-        buscar.doOnTextChanged { text, _, _, _ ->
+        binding.buscarActor.doOnTextChanged { text, _, _, _ ->
             listaFiltrada = lista.filter { actor ->
                 actor.nombre!!.contains(text.toString(), ignoreCase = true)
             }.toMutableList()
             adaptador = ActorAdaptador(listaFiltrada)
-            recycler.adapter = adaptador
+            binding.listaActores.adapter = adaptador
         }
 
         // Listener para cargar datos desde Firebase
@@ -93,7 +73,7 @@ class VerActores : AppCompatActivity() {
                         Log.d("Actor", pojoActor.toString())
                     }
                 }
-                recycler.adapter?.notifyDataSetChanged()
+                binding.listaActores.adapter?.notifyDataSetChanged()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -103,12 +83,12 @@ class VerActores : AppCompatActivity() {
 
         // Configuración del adaptador para el RecyclerView
         adaptador = ActorAdaptador(lista)
-        recycler.adapter = adaptador
-        recycler.setHasFixedSize(true)
-        recycler.layoutManager = LinearLayoutManager(applicationContext)
+        binding.listaActores.adapter = adaptador
+        binding.listaActores.setHasFixedSize(true)
+        binding.listaActores.layoutManager = LinearLayoutManager(applicationContext)
 
         // Acción al hacer clic en el botón "volver"
-        volver.setOnClickListener {
+        binding.volver.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }

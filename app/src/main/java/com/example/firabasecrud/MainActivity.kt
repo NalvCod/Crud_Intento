@@ -8,13 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-
-
-private lateinit var anadir: Button
-private lateinit var botonListar: Button
-
-
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var anadir: Button
+    private lateinit var botonListar: Button
+    private lateinit var anadirActor : Button
+    private lateinit var botonListarActores : Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -27,6 +27,8 @@ class MainActivity : AppCompatActivity() {
 
         anadir = findViewById(R.id.crear)
         botonListar = findViewById(R.id.listar)
+        anadirActor = findViewById(R.id.crearActores)
+        botonListarActores = findViewById(R.id.listarActores)
 
 
         anadir.setOnClickListener {
@@ -36,6 +38,17 @@ class MainActivity : AppCompatActivity() {
 
         botonListar.setOnClickListener {
             val intent = Intent(this, VerSeries::class.java)
+            startActivity(intent)
+        }
+
+        anadirActor.setOnClickListener {
+            val intent = Intent(this, CrearActor::class.java)
+            startActivity(intent)
+
+        }
+
+        botonListarActores.setOnClickListener {
+            val intent = Intent(this, VerActores::class.java)
             startActivity(intent)
         }
 

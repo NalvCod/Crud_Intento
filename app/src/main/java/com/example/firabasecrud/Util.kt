@@ -37,7 +37,7 @@ class Util {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(contexto, "Error al obtener los clubs", Toast.LENGTH_SHORT)
+                    Toast.makeText(contexto, "Error al obtener las series", Toast.LENGTH_SHORT)
                         .show()
                 }
 
@@ -85,6 +85,28 @@ class Util {
                 .fallback(R.drawable.fotogaleria)
                 .error(R.drawable.error_404)
             return options
+        }
+
+        fun obtenerListaActores(db_ref: DatabaseReference, contexto: EditarActorActivity): MutableList<Actor> {
+            val lista_actores = mutableListOf<Actor>()
+
+            db_ref.child("series").addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    snapshot.children.forEach { serie ->
+                        val actor = serie.getValue(Actor::class.java)
+                        lista_actores.add(actor!!)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(contexto, "Error al obtener los actores", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+            })
+            return lista_actores
+
+
         }
 
 
