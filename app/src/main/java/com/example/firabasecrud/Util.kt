@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.example.firabasecrud.actor.Actor
+import com.example.firabasecrud.actor.EditarActorActivity
+import com.example.firabasecrud.series.Serie
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference

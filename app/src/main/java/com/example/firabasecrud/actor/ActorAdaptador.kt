@@ -1,4 +1,4 @@
-package com.example.firabasecrud
+package com.example.firabasecrud.actor
 
 import android.content.Context
 import android.content.Intent
@@ -6,11 +6,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.firabasecrud.R
+import com.example.firabasecrud.Util
+import com.example.firabasecrud.seriesActores.SerieActorAdaptador
 import com.google.firebase.database.FirebaseDatabase
 import io.appwrite.Client
 import io.appwrite.services.Storage
@@ -23,11 +27,12 @@ class ActorAdaptador(private val lista_actors: MutableList<Actor>) : RecyclerVie
     private var lista_filtrada = lista_actors
 
     inner class ActorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val miniatura: ImageView = itemView.findViewById(R.id.item_miniatura)
+        val miniatura: ImageView = itemView.findViewById(R.id.foto_perfil)
         val nombre: TextView = itemView.findViewById(R.id.item_nombre)
         val fecha_nacimiento: TextView = itemView.findViewById(R.id.fecha_estreno)
         val editar: ImageView = itemView.findViewById(R.id.editar)
         val borrar: ImageView = itemView.findViewById(R.id.borrar)
+        val anadirSerie : Button = itemView.findViewById(R.id.add_series_actor)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorViewHolder {
@@ -59,7 +64,7 @@ class ActorAdaptador(private val lista_actors: MutableList<Actor>) : RecyclerVie
 
         holder.editar.setOnClickListener {
             val intent = Intent(contexto, EditarActorActivity::class.java)
-            intent.putExtra("actor", actor_actual)
+            intent.putExtra("com/example/firabasecrud/actor", actor_actual)
             contexto.startActivity(intent)
         }
 
@@ -80,8 +85,14 @@ class ActorAdaptador(private val lista_actors: MutableList<Actor>) : RecyclerVie
                 )
             }
 
+            holder.anadirSerie.setOnClickListener{
+                val intent = Intent(contexto, SerieActorAdaptador::class.java)
+                intent.putExtra(actor_actual.nombre, actor_actual)
+                contexto.startActivity(intent)
+            }
+
             lista_filtrada.removeAt(position)
-            db_ref.child("actor").child(actor_actual.id!!).removeValue()
+            db_ref.child("com/example/firabasecrud/actor").child(actor_actual.id!!).removeValue()
             Toast.makeText(contexto, "Actor eliminado", Toast.LENGTH_SHORT).show()
             notifyItemRemoved(position)
             notifyItemRangeChanged(position, lista_filtrada.size)

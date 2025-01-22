@@ -13,7 +13,7 @@
         android:theme="@style/Theme.FirabaseCRUD"
         tools:targetApi="31">
         <activity
-            android:name=".VerSeriesActores"
+            android:name=".seriesActores.VerSeriesActores"
             android:exported="false" />
         <activity
             android:name=".Mensaje"
@@ -25,22 +25,22 @@
             android:name=".MensajeActivity"
             android:exported="false" />
         <activity
-            android:name=".VerActores"
+            android:name=".actor.VerActores"
             android:exported="false" />
         <activity
             android:name=".EditarActor"
             android:exported="false" />
         <activity
-            android:name=".CrearActor"
+            android:name=".actor.CrearActor"
             android:exported="false" />
         <activity
-            android:name=".VerSeries"
+            android:name=".series.VerSeries"
             android:exported="false" />
         <activity
-            android:name=".EditarSerie"
+            android:name=".series.EditarSerie"
             android:exported="false" />
         <activity
-            android:name=".CrearSerie"
+            android:name=".series.CrearSerie"
             android:exported="false" />
         <activity
             android:name=".EditarClub"

@@ -1,4 +1,4 @@
-package com.example.firabasecrud
+package com.example.firabasecrud.actor
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -13,7 +13,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
+import com.example.firabasecrud.R
+import com.example.firabasecrud.Util
 import com.example.firabasecrud.databinding.ActivityEditarActorBinding
+import com.example.firabasecrud.series.VerSeries
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import io.appwrite.Client
@@ -145,7 +148,7 @@ class EditarActorActivity : AppCompatActivity() {
 
 
                     Util.toastCorrutina(
-                            this@EditarActorActivity, applicationContext,
+                        this@EditarActorActivity, applicationContext,
                         "Imagen descargada con éxito"
                     )
                 }

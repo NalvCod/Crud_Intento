@@ -1,4 +1,4 @@
-package com.example.firabasecrud
+package com.example.firabasecrud.seriesActores
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,14 +7,16 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.RatingBar
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.firabasecrud.MainActivity
+import com.example.firabasecrud.R
+import com.example.firabasecrud.actor.Actor
+import com.example.firabasecrud.series.Serie
+import com.example.firabasecrud.series.SerieAdaptador
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -22,7 +24,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 
-class VerSeries : AppCompatActivity() {
+class VerSeriesActores : AppCompatActivity() {
 
     private lateinit var volver: ImageView
     private lateinit var recycler: RecyclerView
@@ -31,16 +33,13 @@ class VerSeries : AppCompatActivity() {
     private lateinit var adaptador: SerieAdaptador
     private lateinit var ordenar: CheckBox
     private lateinit var buscar: EditText
+    private lateinit var anadirActor: Button
+    private lateinit var actorActual: Actor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_ver_series)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
         volver = findViewById(R.id.volver)
         recycler = findViewById(R.id.lista_series)
@@ -63,7 +62,7 @@ class VerSeries : AppCompatActivity() {
         }
 
         buscar.doOnTextChanged{
-            text, _, _, _ ->
+                text, _, _, _ ->
             lista_filtrada = lista.filter { serie ->
                 serie.nombre!!.contains(text.toString(), ignoreCase = true)
             }.toMutableList()
@@ -96,6 +95,14 @@ class VerSeries : AppCompatActivity() {
         volver.setOnClickListener() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+        }
+
+        anadirActor.setOnClickListener{
+            val intent = Intent(this, VerSeriesActores::class.java)
+            startActivity(intent)
+            //quiero guardarme el actor que estoy pasando
+            intent.putExtra("com/example/firabasecrud/actor", actorActual)
+
         }
     }
 }

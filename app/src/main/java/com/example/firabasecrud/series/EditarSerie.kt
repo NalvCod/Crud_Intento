@@ -1,4 +1,4 @@
-package com.example.firabasecrud
+package com.example.firabasecrud.series
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
+import com.example.firabasecrud.R
+import com.example.firabasecrud.Util
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import io.appwrite.Client

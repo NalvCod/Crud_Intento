@@ -1,14 +1,11 @@
-package com.example.firabasecrud
+package com.example.firabasecrud.series
 
-import android.content.Intent
-import android.media.Image
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.RatingBar
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.example.firabasecrud.R
 
 class ItemSerie : AppCompatActivity() {
 

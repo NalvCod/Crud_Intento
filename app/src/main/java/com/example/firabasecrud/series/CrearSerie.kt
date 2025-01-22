@@ -1,6 +1,5 @@
-package com.example.firabasecrud
+package com.example.firabasecrud.series
 
-import android.media.Rating
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
@@ -12,6 +11,8 @@ import android.widget.RatingBar
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.example.firabasecrud.R
+import com.example.firabasecrud.Util
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import io.appwrite.Client

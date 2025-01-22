@@ -1,4 +1,4 @@
-package com.example.firabasecrud
+package com.example.firabasecrud.series
 
     import java.io.Serializable
     import java.text.SimpleDateFormat

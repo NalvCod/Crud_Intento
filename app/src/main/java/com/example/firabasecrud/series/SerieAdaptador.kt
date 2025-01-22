@@ -1,4 +1,4 @@
-package com.example.firabasecrud
+package com.example.firabasecrud.series
 
 import android.content.Context
 import android.content.Intent
@@ -12,6 +12,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.firabasecrud.R
+import com.example.firabasecrud.Util
 import com.google.firebase.database.FirebaseDatabase
 import io.appwrite.Client
 import io.appwrite.services.Storage
@@ -65,7 +67,7 @@ class SerieAdaptador (private val lista_series: MutableList<Serie>) : RecyclerVi
             .into(holder.miniatura)
 
         holder.editar.setOnClickListener{
-            val intent= Intent(contexto,EditarSerie::class.java)
+            val intent= Intent(contexto, EditarSerie::class.java)
             intent.putExtra("serie",serie_actual)
             contexto.startActivity(intent)
         }
