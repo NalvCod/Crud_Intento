@@ -86,8 +86,6 @@ class EditarSerie : AppCompatActivity() {
             Log.d("DEBUG", "Puntuación actual: ${serie.puntuacion}")
         }
 
-
-
         nombre.setText(serie.nombre)
         fecha_inicio.setText(serie.fechaInicio)
         fecha_fin.setText(serie.fechaFin)

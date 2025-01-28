@@ -27,10 +27,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class EditarActorActivity : AppCompatActivity() {
+class EditarActor : AppCompatActivity() {
 
     private lateinit var binding: ActivityEditarActorBinding
-
     private lateinit var database: DatabaseReference
     private var url_imagen: Uri? = null
     private lateinit var actor: Actor
@@ -40,26 +39,19 @@ class EditarActorActivity : AppCompatActivity() {
     private lateinit var id_projecto: String
     private lateinit var id_bucket: String
 
-    private lateinit var imagen: String
-
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditarActorBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        // Configuración de la interfaz
         enableEdgeToEdge()
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-
         database = FirebaseDatabase.getInstance().reference
-
+            actor = intent.getSerializableExtra("actor actual") as Actor
         // Asignar valores del actor a los campos
         binding.nombre.setText(actor.nombre)
         binding.fechaNacimiento.setText(actor.fechaNacimiento)
@@ -69,7 +61,7 @@ class EditarActorActivity : AppCompatActivity() {
 
         // Configurar botón Volver
         binding.volver.setOnClickListener {
-            val intent = Intent(this, VerSeries::class.java)
+            val intent = Intent(this, VerActores::class.java)
             startActivity(intent)
         }
 
@@ -77,7 +69,6 @@ class EditarActorActivity : AppCompatActivity() {
             .setEndpoint("https://cloud.appwrite.io/v1")    // Your API Endpoint
             .setProject(id_projecto)
         val storage = Storage(client)
-        var activity = this
 
         // Cargar imagen con Glide
         Glide.with(applicationContext).load(actor.url_imagen)
@@ -148,7 +139,7 @@ class EditarActorActivity : AppCompatActivity() {
 
 
                     Util.toastCorrutina(
-                        this@EditarActorActivity, applicationContext,
+                        this@EditarActor, applicationContext,
                         "Imagen descargada con éxito"
                     )
                 }

@@ -81,7 +81,7 @@
             app:layout_constraintTop_toTopOf="@+id/editar" />
 
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/ver_series_actor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -91,12 +91,11 @@
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/appCompatButton"
+            app:layout_constraintStart_toEndOf="@+id/add_series_actor"
             app:layout_constraintTop_toBottomOf="@+id/item_nombre" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/appCompatButton"
-            id="@+id/add_series_actor"
+        <Button
+            android:id="@+id/add_series_actor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="88dp"
@@ -107,8 +106,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/fecha_estreno"
             app:layout_constraintTop_toBottomOf="@+id/item_nombre" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

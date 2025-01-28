@@ -71,8 +71,6 @@ class VerSeries : AppCompatActivity() {
             recycler.adapter=adaptador
         }
 
-
-
         db_ref.child("series").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 lista.clear()

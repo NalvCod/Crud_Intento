@@ -10,11 +10,13 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.firabasecrud.R
 import com.example.firabasecrud.Util
 import com.example.firabasecrud.seriesActores.SerieActorAdaptador
+import com.example.firabasecrud.seriesActores.VerSeriesActores
 import com.google.firebase.database.FirebaseDatabase
 import io.appwrite.Client
 import io.appwrite.services.Storage
@@ -32,7 +34,7 @@ class ActorAdaptador(private val lista_actors: MutableList<Actor>) : RecyclerVie
         val fecha_nacimiento: TextView = itemView.findViewById(R.id.fecha_estreno)
         val editar: ImageView = itemView.findViewById(R.id.editar)
         val borrar: ImageView = itemView.findViewById(R.id.borrar)
-        val anadirSerie : Button = itemView.findViewById(R.id.add_series_actor)
+        val anadirSerie: Button = itemView.findViewById(R.id.add_series_actor)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorViewHolder {
@@ -55,18 +57,25 @@ class ActorAdaptador(private val lista_actors: MutableList<Actor>) : RecyclerVie
         }
         Log.d("URL", URL.toString())
 
-        // Usar Glide para cargar la imagen del actor
         Glide.with(contexto)
             .load(URL)
-            .apply(Util.opcionesGlide(contexto)) // Asegúrate de que el método opcionesGlide esté disponible
-            .transition(Util.transicion)          // Asegúrate de que la transición esté definida
+            .apply(Util.opcionesGlide(contexto))
+            .transition(Util.transicion)
             .into(holder.miniatura)
 
         holder.editar.setOnClickListener {
-            val intent = Intent(contexto, EditarActorActivity::class.java)
-            intent.putExtra("com/example/firabasecrud/actor", actor_actual)
+            val intent = Intent(contexto, EditarActor::class.java)
+            intent.putExtra("actor actual", actor_actual)
             contexto.startActivity(intent)
         }
+
+        holder.anadirSerie.setOnClickListener{
+            Log.d("ANADIR", "EDITAR Serie button clicked")
+            val intent = Intent(contexto, VerSeriesActores::class.java)
+            intent.putExtra("actor actual", actor_actual)
+            contexto.startActivity(intent)
+        }
+
 
         holder.borrar.setOnClickListener {
             val db_ref = FirebaseDatabase.getInstance().reference
@@ -83,12 +92,6 @@ class ActorAdaptador(private val lista_actors: MutableList<Actor>) : RecyclerVie
                     bucketId = id_bucket,
                     fileId = actor_actual.id_imagen!!
                 )
-            }
-
-            holder.anadirSerie.setOnClickListener{
-                val intent = Intent(contexto, SerieActorAdaptador::class.java)
-                intent.putExtra(actor_actual.nombre, actor_actual)
-                contexto.startActivity(intent)
             }
 
             lista_filtrada.removeAt(position)

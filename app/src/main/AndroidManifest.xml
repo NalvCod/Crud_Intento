@@ -28,7 +28,7 @@
             android:name=".actor.VerActores"
             android:exported="false" />
         <activity
-            android:name=".EditarActor"
+            android:name=".actor.EditarActor"
             android:exported="false" />
         <activity
             android:name=".actor.CrearActor"
@@ -41,15 +41,6 @@
             android:exported="false" />
         <activity
             android:name=".series.CrearSerie"
-            android:exported="false" />
-        <activity
-            android:name=".EditarClub"
-            android:exported="false" />
-        <activity
-            android:name=".VerClubs"
-            android:exported="false" />
-        <activity
-            android:name=".CrearClub"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

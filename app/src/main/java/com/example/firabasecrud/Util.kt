@@ -8,7 +8,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.firabasecrud.actor.Actor
-import com.example.firabasecrud.actor.EditarActorActivity
+import com.example.firabasecrud.actor.EditarActor
 import com.example.firabasecrud.series.Serie
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -90,7 +90,7 @@ class Util {
             return options
         }
 
-        fun obtenerListaActores(db_ref: DatabaseReference, contexto: EditarActorActivity): MutableList<Actor> {
+        fun obtenerListaActores(db_ref: DatabaseReference, contexto: EditarActor): MutableList<Actor> {
             val lista_actores = mutableListOf<Actor>()
 
             db_ref.child("series").addValueEventListener(object : ValueEventListener {
