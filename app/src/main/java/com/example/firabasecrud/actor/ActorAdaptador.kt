@@ -70,12 +70,11 @@ class ActorAdaptador(private val lista_actors: MutableList<Actor>) : RecyclerVie
         }
 
         holder.anadirSerie.setOnClickListener{
-            Log.d("ANADIR", "EDITAR Serie button clicked")
+            Log.v("Ver", "Se ha enviado el actor ${actor_actual.nombre}")
             val intent = Intent(contexto, VerSeriesActores::class.java)
             intent.putExtra("actor actual", actor_actual)
             contexto.startActivity(intent)
         }
-
 
         holder.borrar.setOnClickListener {
             val db_ref = FirebaseDatabase.getInstance().reference

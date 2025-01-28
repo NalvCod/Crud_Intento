@@ -34,7 +34,6 @@ class SerieAdaptador (private val lista_series: MutableList<Serie>) : RecyclerVi
         val puntuacion: RatingBar = itemView.findViewById(R.id.item_rating)
         val editar: ImageView = itemView.findViewById(R.id.editar)
         val borrar: ImageView = itemView.findViewById(R.id.borrar)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SerieViewHolder {
@@ -44,7 +43,6 @@ class SerieAdaptador (private val lista_series: MutableList<Serie>) : RecyclerVi
     }
 
     override fun getItemCount() = lista_filtrada.size
-
 
     override fun onBindViewHolder(holder: SerieViewHolder, position: Int) {
         val serie_actual = lista_filtrada[position]
@@ -74,7 +72,6 @@ class SerieAdaptador (private val lista_series: MutableList<Serie>) : RecyclerVi
 
         holder.borrar.setOnClickListener{
             val db_ref= FirebaseDatabase.getInstance().reference
-            //val storage_ref= FirebaseStorage.getInstance().reference
             val id_projecto = "674762dd002af7924291"
             val id_bucket = "674762fb002a63512c24"
 
@@ -95,9 +92,6 @@ class SerieAdaptador (private val lista_series: MutableList<Serie>) : RecyclerVi
             Toast.makeText(contexto,"Serie eliminada", Toast.LENGTH_SHORT).show()
             notifyItemRemoved(position)
             notifyItemRangeChanged(position,lista_filtrada.size)
-
         }
-
-
     }
 }

@@ -30,16 +30,15 @@ class VerSeriesActores : AppCompatActivity() {
     private lateinit var recycler: RecyclerView
     private lateinit var lista: MutableList<Serie>
     private lateinit var db_ref: DatabaseReference
-    private lateinit var adaptador: SerieAdaptador
+    private lateinit var adaptador: SerieActorAdaptador
     private lateinit var ordenar: CheckBox
     private lateinit var buscar: EditText
-    private lateinit var anadirActor: Button
     private lateinit var actorActual: Actor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_ver_series)
+        setContentView(R.layout.activity_ver_series_actores)
 
         volver = findViewById(R.id.volver)
         recycler = findViewById(R.id.lista_series)
@@ -56,22 +55,18 @@ class VerSeriesActores : AppCompatActivity() {
             } else {
                 lista_filtrada = lista
             }
-            adaptador = SerieAdaptador(lista_filtrada)
+            adaptador = SerieActorAdaptador(lista_filtrada, actorActual = intent.getSerializableExtra("actor actual") as Actor)
             adaptador.notifyDataSetChanged()
-            recycler.adapter=adaptador
+            recycler.adapter = adaptador
         }
 
-        buscar.doOnTextChanged{
-                text, _, _, _ ->
+        buscar.doOnTextChanged { text, _, _, _ ->
             lista_filtrada = lista.filter { serie ->
                 serie.nombre!!.contains(text.toString(), ignoreCase = true)
             }.toMutableList()
-            adaptador = SerieAdaptador(lista_filtrada)
-            recycler.adapter=adaptador
+            adaptador = SerieActorAdaptador(lista_filtrada, actorActual = intent.getSerializableExtra("actor actual") as Actor)
+            recycler.adapter = adaptador
         }
-
-
-
         db_ref.child("series").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 lista.clear()
@@ -87,7 +82,7 @@ class VerSeriesActores : AppCompatActivity() {
                 println(error.message)
             }
         })
-        adaptador = SerieAdaptador(lista)
+        adaptador = SerieActorAdaptador(lista, actorActual = intent.getSerializableExtra("actor actual") as Actor)
         recycler.adapter = adaptador
         recycler.setHasFixedSize(true)
         recycler.layoutManager = LinearLayoutManager(applicationContext)
@@ -95,14 +90,6 @@ class VerSeriesActores : AppCompatActivity() {
         volver.setOnClickListener() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-        }
-
-        anadirActor.setOnClickListener{
-            val intent = Intent(this, VerSeriesActores::class.java)
-            startActivity(intent)
-            //quiero guardarme el actor que estoy pasando
-            intent.putExtra("com/example/firabasecrud/actor", actorActual)
-
         }
     }
 }
