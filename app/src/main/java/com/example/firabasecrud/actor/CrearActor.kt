@@ -132,7 +132,6 @@ class CrearActor : AppCompatActivity() {
             binding.anadirImagen.setImageURI(url_imagen)
         }
     }
-
 }
 
 

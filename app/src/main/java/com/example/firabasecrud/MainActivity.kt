@@ -9,6 +9,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.firabasecrud.actor.CrearActor
 import com.example.firabasecrud.actor.VerActores
+import com.example.firabasecrud.productoras.CrearProductora
+import com.example.firabasecrud.productoras.VerProductoras
 import com.example.firabasecrud.series.CrearSerie
 import com.example.firabasecrud.series.VerSeries
 
@@ -18,6 +20,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var botonListar: Button
     private lateinit var anadirActor : Button
     private lateinit var botonListarActores : Button
+    private lateinit var botonVerProductoras : Button
+    private lateinit var botonCrearProductoras : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +37,21 @@ class MainActivity : AppCompatActivity() {
         botonListar = findViewById(R.id.listar)
         anadirActor = findViewById(R.id.crearActores)
         botonListarActores = findViewById(R.id.listarActores)
+        botonVerProductoras = findViewById(R.id.listarProductoras)
+        botonCrearProductoras = findViewById(R.id.crearProductoras)
 
+
+        botonVerProductoras.setOnClickListener {
+            val intent = Intent(this, VerProductoras::class.java)
+            startActivity(intent)
+
+        }
+
+        botonCrearProductoras.setOnClickListener {
+            val intent = Intent(this, CrearProductora::class.java)
+            startActivity(intent)
+
+        }
 
         anadir.setOnClickListener {
             val intent = Intent(this, CrearSerie::class.java)

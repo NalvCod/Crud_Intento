@@ -9,6 +9,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.firabasecrud.actor.Actor
 import com.example.firabasecrud.actor.EditarActor
+import com.example.firabasecrud.productoras.Productora
 import com.example.firabasecrud.series.Serie
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -54,6 +55,35 @@ class Util {
 
         fun escribirActor(db_ref: DatabaseReference, id: String, actor: Actor) {
             db_ref.child("actores").child(id).setValue(actor)
+        }
+
+        //PRODUCTORA
+        fun existeProductora(productoras: List<Productora>, nombre: String): Boolean {
+            return productoras.any { it.nombre!!.lowercase() == nombre.lowercase() }
+        }
+
+        fun obtenerListaProductoras(db_ref: DatabaseReference, contexto: Context): MutableList<Productora> {
+            val lista_productoras = mutableListOf<Productora>()
+
+            db_ref.child("productoras").addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    snapshot.children.forEach { productora ->
+                        val productora_act = productora.getValue(Productora::class.java)
+                        productora_act?.let {
+                            lista_productoras.add(it)
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(contexto, "Error al obtener las productoras", Toast.LENGTH_SHORT).show()
+                }
+            })
+            return lista_productoras
+        }
+
+        fun escribirProductora(db_ref: DatabaseReference, id: String, productora: Productora) {
+            db_ref.child("productoras").child(id).setValue(productora)
         }
 
         suspend fun guardarImagen(almacen: StorageReference, id: String, escudo: Uri): String {
