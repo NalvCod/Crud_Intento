@@ -7,4 +7,47 @@
     android:layout_height="match_parent"
     tools:context=".MensajeActivity">
 
+    <Button
+        android:id="@+id/boton_enviar"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="1"
+
+        android:text="Enviar"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/texto_mensaje"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/boton_enviar"
+        app:layout_constraintEnd_toStartOf="@+id/boton_enviar"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/boton_enviar"
+        app:layout_constraintVertical_bias="0.625" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_mensajes"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        tools:listitem="@layout/item_chat"
+        app:layout_constraintBottom_toTopOf="@+id/boton_enviar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/fondocine"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

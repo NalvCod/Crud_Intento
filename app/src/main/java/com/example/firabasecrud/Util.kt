@@ -2,6 +2,7 @@ package com.example.firabasecrud
 
 import android.content.Context
 import android.net.Uri
+import android.provider.ContactsContract.Data
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
@@ -51,6 +52,12 @@ class Util {
 
         fun escribirSerie(db_ref: DatabaseReference, id: String, serie: Serie) {
             db_ref.child("series").child(id).setValue(serie)
+        }
+
+        fun introducir_nombre_usuario(db_ref: DatabaseReference, nombre:String){
+            var id = db_ref.child("nombre_usuario").push().key
+            db_ref.child("nombre_usuario").child(id!!).setValue(nombre)
+
         }
 
         fun escribirActor(db_ref: DatabaseReference, id: String, actor: Actor) {

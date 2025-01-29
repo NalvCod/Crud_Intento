@@ -1,20 +1,18 @@
 package com.example.firabasecrud
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.Parcelable
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import kotlinx.parcelize.Parcelize
 
-class Mensaje : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_mensaje2)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-    }
-}
+@Parcelize
+data class Mensaje(var id:String?=null,
+                   var id_emisor:String?=null,
+                   var id_receptor:String?=null,
+                   var imagen_emisor:Int = 0,
+                   var contenido:String?=null,
+                   var fecha_hora:String?=null): Parcelable

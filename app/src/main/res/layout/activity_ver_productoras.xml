@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="Listado de actores"
+            android:text="Listado de productoras"
             android:textColor="@color/white"
             android:textSize="25dp"
             android:layout_marginTop="20dp"
@@ -39,12 +39,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/buscar_actor"
+            android:id="@+id/buscar_productora"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:background="@color/browser_actions_title_color"
-            android:hint="Buscar actor"
+            android:hint="Buscar productora"
             android:layout_marginEnd="15dp"
             android:layout_marginTop="10dp"
             android:inputType="text"

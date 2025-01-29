@@ -27,8 +27,7 @@ class VerProductoras : AppCompatActivity() {
     private lateinit var recycler: RecyclerView
     private lateinit var lista: MutableList<Productora>
     private lateinit var db_ref: DatabaseReference
-    private lateinit var adaptador: ProductoraAdapter
-    private lateinit var ordenar: CheckBox
+    private lateinit var adaptador: ProductoraAdaptador
     private lateinit var buscar: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,27 +44,16 @@ class VerProductoras : AppCompatActivity() {
         recycler = findViewById(R.id.lista_productoras)
         lista = mutableListOf()
         db_ref = FirebaseDatabase.getInstance().reference
+        buscar = findViewById(R.id.buscar_productora)
 
         var lista_filtrada = mutableListOf<Productora>()
-
-        // Ordenar las productoras por año de fundación
-        ordenar.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                lista_filtrada = lista.sortedBy { it.anhoFundacion?.toIntOrNull() ?: 0 }.toMutableList()
-            } else {
-                lista_filtrada = lista
-            }
-            adaptador = ProductoraAdapter(lista_filtrada)
-            adaptador.notifyDataSetChanged()
-            recycler.adapter = adaptador
-        }
 
         // Buscar productoras por nombre
         buscar.doOnTextChanged { text, _, _, _ ->
             lista_filtrada = lista.filter { productora ->
                 productora.nombre!!.contains(text.toString(), ignoreCase = true)
             }.toMutableList()
-            adaptador = ProductoraAdapter(lista_filtrada)
+            adaptador = ProductoraAdaptador(lista_filtrada)
             recycler.adapter = adaptador
         }
 

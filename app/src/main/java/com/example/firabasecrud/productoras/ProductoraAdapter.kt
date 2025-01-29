@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.firabasecrud.R
 import com.example.firabasecrud.Util
+import com.example.firabasecrud.productorasSeries.VerProductorasSeries
 import com.google.firebase.database.FirebaseDatabase
 import io.appwrite.Client
 import io.appwrite.services.Storage
@@ -26,11 +27,10 @@ class ProductoraAdaptador(private val lista_productoras: MutableList<Productora>
     private var lista_filtrada = lista_productoras
 
     inner class ProductoraViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val nombre: TextView = itemView.findViewById(R.id.item_nombre) // Nombre de la productora
-        val anhoFundacion: TextView = itemView.findViewById(R.id.fecha_estreno) // Año de fundación
-        val editar: ImageView = itemView.findViewById(R.id.editar) // Botón de editar
-        val borrar: ImageView = itemView.findViewById(R.id.borrar) // Botón de borrar
-        val anadirSerie: Button = itemView.findViewById(R.id.add_series_actor) // Añadir serie
+        val nombre: TextView = itemView.findViewById(R.id.nombre_productora) // Nombre de la productora
+        val anhoFundacion: TextView = itemView.findViewById(R.id.ano_fundacion) // Año de fundación
+        val borrar: ImageView = itemView.findViewById(R.id.eliminarProductora) // Botón de borrar
+        val anadirSerie: ImageView = itemView.findViewById(R.id.anadirSerie) // Botón de añadir serie
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductoraViewHolder {
@@ -46,15 +46,18 @@ class ProductoraAdaptador(private val lista_productoras: MutableList<Productora>
         holder.nombre.text = productora_actual.nombre
         holder.anhoFundacion.text = productora_actual.anhoFundacion
 
+
+        /*
         holder.editar.setOnClickListener {
             val intent = Intent(contexto, EditarProductora::class.java)
             intent.putExtra("productora actual", productora_actual)
             contexto.startActivity(intent)
         }
+         */
 
         holder.anadirSerie.setOnClickListener{
             Log.v("Ver", "Se ha enviado la productora ${productora_actual.nombre}")
-            val intent = Intent(contexto, VerProductoras::class.java)
+            val intent = Intent(contexto, VerProductorasSeries::class.java)
             intent.putExtra("productora actual", productora_actual)
             contexto.startActivity(intent)
         }
