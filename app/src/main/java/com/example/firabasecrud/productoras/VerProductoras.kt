@@ -29,6 +29,7 @@ class VerProductoras : AppCompatActivity() {
     private lateinit var db_ref: DatabaseReference
     private lateinit var adaptador: ProductoraAdaptador
     private lateinit var buscar: EditText
+    private lateinit var nombre: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +49,6 @@ class VerProductoras : AppCompatActivity() {
 
         var lista_filtrada = mutableListOf<Productora>()
 
-        // Buscar productoras por nombre
         buscar.doOnTextChanged { text, _, _, _ ->
             lista_filtrada = lista.filter { productora ->
                 productora.nombre!!.contains(text.toString(), ignoreCase = true)
@@ -57,7 +57,6 @@ class VerProductoras : AppCompatActivity() {
             recycler.adapter = adaptador
         }
 
-        // Obtener las productoras desde Firebase
         db_ref.child("productoras").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 lista.clear()

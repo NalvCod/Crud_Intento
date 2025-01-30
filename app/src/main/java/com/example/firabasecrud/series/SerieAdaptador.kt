@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.firabasecrud.R
 import com.example.firabasecrud.Util
+import com.example.firabasecrud.productoras.Productora
 import com.google.firebase.database.FirebaseDatabase
 import io.appwrite.Client
 import io.appwrite.services.Storage
@@ -21,14 +22,36 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class SerieAdaptador (private val lista_series: MutableList<Serie>) : RecyclerView.Adapter<SerieAdaptador.SerieViewHolder>() {
+class SerieAdaptador(
+    private val lista_series: MutableList<Serie>,
+    private val productora: Productora? = null,  // Optional parameter, default is null
+    private val esFiltrado: Boolean = false // Booleano para saber si se debe filtrar
+) : RecyclerView.Adapter<SerieAdaptador.SerieViewHolder>() {
+
     private lateinit var contexto: Context
     private var lista_filtrada = lista_series
+
+    /*
+    init {
+
+        if (esFiltrado && productora != null) {
+            Log.d("Productora", productora.toString())
+            // Si esFiltrado es true, filtra las series por la productora
+            lista_filtrada = lista_series.filter { serie ->
+                // Filtra las series cuyos nombres estén en la lista de series de la productora
+                productora.series.split(",").contains("a")
+
+            }.toMutableList()
+
+        }
+    }
+     */
+
 
     inner class SerieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val miniatura: ImageView = itemView.findViewById(R.id.item_miniatura)
         val nombre: TextView = itemView.findViewById(R.id.item_nombre)
-        val genero : TextView = itemView.findViewById(R.id.genero)
+        val genero: TextView = itemView.findViewById(R.id.genero)
         val fecha_estreno: TextView = itemView.findViewById(R.id.fecha_estreno)
         val fecha_fin: TextView = itemView.findViewById(R.id.fecha_finalizacion)
         val puntuacion: RatingBar = itemView.findViewById(R.id.item_rating)
@@ -37,8 +60,8 @@ class SerieAdaptador (private val lista_series: MutableList<Serie>) : RecyclerVi
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SerieViewHolder {
-        val vista_item = LayoutInflater.from(parent.context).inflate(R.layout.item_serie,parent,false)
-        contexto=parent.context
+        val vista_item = LayoutInflater.from(parent.context).inflate(R.layout.item_serie, parent, false)
+        contexto = parent.context
         return SerieViewHolder(vista_item)
     }
 
@@ -52,11 +75,11 @@ class SerieAdaptador (private val lista_series: MutableList<Serie>) : RecyclerVi
         holder.genero.text = serie_actual.genero
         holder.puntuacion.rating = serie_actual.puntuacion
 
-        val URL:String?=when(serie_actual.url_imagen){
-            ""->null //Para que active imagen de fallback
-            else->serie_actual.url_imagen
+        val URL: String? = when (serie_actual.url_imagen) {
+            "" -> null // Para que active imagen de fallback
+            else -> serie_actual.url_imagen
         }
-        Log.d("URL",URL.toString())
+        Log.d("URL", URL.toString())
 
         Glide.with(contexto)
             .load(URL)
@@ -64,14 +87,14 @@ class SerieAdaptador (private val lista_series: MutableList<Serie>) : RecyclerVi
             .transition(Util.transicion)
             .into(holder.miniatura)
 
-        holder.editar.setOnClickListener{
-            val intent= Intent(contexto, EditarSerie::class.java)
-            intent.putExtra("serie",serie_actual)
+        holder.editar.setOnClickListener {
+            val intent = Intent(contexto, EditarSerie::class.java)
+            intent.putExtra("serie", serie_actual)
             contexto.startActivity(intent)
         }
 
-        holder.borrar.setOnClickListener{
-            val db_ref= FirebaseDatabase.getInstance().reference
+        holder.borrar.setOnClickListener {
+            val db_ref = FirebaseDatabase.getInstance().reference
             val id_projecto = "674762dd002af7924291"
             val id_bucket = "674762fb002a63512c24"
 
@@ -89,9 +112,9 @@ class SerieAdaptador (private val lista_series: MutableList<Serie>) : RecyclerVi
 
             lista_filtrada.removeAt(position)
             db_ref.child("serie").child(serie_actual.id!!).removeValue()
-            Toast.makeText(contexto,"Serie eliminada", Toast.LENGTH_SHORT).show()
+            Toast.makeText(contexto, "Serie eliminada", Toast.LENGTH_SHORT).show()
             notifyItemRemoved(position)
-            notifyItemRangeChanged(position,lista_filtrada.size)
+            notifyItemRangeChanged(position, lista_filtrada.size)
         }
     }
 }

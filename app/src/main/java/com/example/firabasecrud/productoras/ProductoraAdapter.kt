@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.firabasecrud.R
 import com.example.firabasecrud.Util
+import com.example.firabasecrud.productorasSeries.ProductoraDetalle
 import com.example.firabasecrud.productorasSeries.VerProductorasSeries
 import com.google.firebase.database.FirebaseDatabase
 import io.appwrite.Client
@@ -31,6 +32,7 @@ class ProductoraAdaptador(private val lista_productoras: MutableList<Productora>
         val anhoFundacion: TextView = itemView.findViewById(R.id.ano_fundacion) // Año de fundación
         val borrar: ImageView = itemView.findViewById(R.id.eliminarProductora) // Botón de borrar
         val anadirSerie: ImageView = itemView.findViewById(R.id.anadirSerie) // Botón de añadir serie
+        val editar: ImageView = itemView.findViewById(R.id.editarProductora) // Botón de editar
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductoraViewHolder {
@@ -47,13 +49,19 @@ class ProductoraAdaptador(private val lista_productoras: MutableList<Productora>
         holder.anhoFundacion.text = productora_actual.anhoFundacion
 
 
-        /*
+
         holder.editar.setOnClickListener {
             val intent = Intent(contexto, EditarProductora::class.java)
             intent.putExtra("productora actual", productora_actual)
             contexto.startActivity(intent)
         }
-         */
+
+
+        holder.nombre.setOnClickListener{
+            var intent = Intent(contexto, ProductoraDetalle::class.java)
+            intent.putExtra("productora actual", productora_actual)
+            contexto.startActivity(intent)
+        }
 
         holder.anadirSerie.setOnClickListener{
             Log.v("Ver", "Se ha enviado la productora ${productora_actual.nombre}")
@@ -65,7 +73,6 @@ class ProductoraAdaptador(private val lista_productoras: MutableList<Productora>
         holder.borrar.setOnClickListener {
             val db_ref = FirebaseDatabase.getInstance().reference
             val id_projecto = "674762dd002af7924291"
-            val id_bucket = "674762fb002a63512c24"
 
             val client = Client()
                 .setEndpoint("https://cloud.appwrite.io/v1")    // Tu API Endpoint

@@ -31,7 +31,6 @@ class VerProductorasSeries : AppCompatActivity() {
     private lateinit var lista: MutableList<Serie>
     private lateinit var db_ref: DatabaseReference
     private lateinit var adaptador: ProductorasSeriesAdapter
-    private lateinit var ordenar: CheckBox
     private lateinit var buscar: EditText
     private lateinit var productoraActual: Productora
 
@@ -45,14 +44,10 @@ class VerProductorasSeries : AppCompatActivity() {
         lista = mutableListOf()
         db_ref = FirebaseDatabase.getInstance().reference
         buscar = findViewById(R.id.buscar_serie)
-
-        // Retrieve the current productora from the intent
         productoraActual = intent.getSerializableExtra("productora actual") as Productora
 
         var lista_filtrada = mutableListOf<Serie>()
 
-
-        // Handle search
         buscar.doOnTextChanged { text, _, _, _ ->
             lista_filtrada = lista.filter { serie ->
                 serie.nombre!!.contains(text.toString(), ignoreCase = true)
@@ -80,7 +75,6 @@ class VerProductorasSeries : AppCompatActivity() {
             }
         })
 
-        // Initialize the adapter with the initial list
         adaptador = ProductorasSeriesAdapter(lista, productoraActual)
         recycler.adapter = adaptador
         recycler.setHasFixedSize(true)

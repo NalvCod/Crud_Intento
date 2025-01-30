@@ -33,7 +33,6 @@ class VerSeriesActores : AppCompatActivity() {
     private lateinit var adaptador: SerieActorAdaptador
     private lateinit var ordenar: CheckBox
     private lateinit var buscar: EditText
-    private lateinit var actorActual: Actor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

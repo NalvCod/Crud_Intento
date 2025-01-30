@@ -51,6 +51,7 @@ class VerSeries : AppCompatActivity() {
 
         var lista_filtrada = mutableListOf<Serie>()
 
+        //ordenar
         ordenar.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 lista_filtrada = lista.sortedBy { it.puntuacion }.toMutableList()
@@ -62,6 +63,7 @@ class VerSeries : AppCompatActivity() {
             recycler.adapter=adaptador
         }
 
+        //filtrar por nombre
         buscar.doOnTextChanged{
             text, _, _, _ ->
             lista_filtrada = lista.filter { serie ->
