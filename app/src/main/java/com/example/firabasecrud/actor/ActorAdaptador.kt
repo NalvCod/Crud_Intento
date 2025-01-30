@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.firabasecrud.R
 import com.example.firabasecrud.Util
+import com.example.firabasecrud.series.Serie
 import com.example.firabasecrud.seriesActores.SerieActorAdaptador
 import com.example.firabasecrud.seriesActores.VerSeriesActores
 import com.google.firebase.database.FirebaseDatabase
@@ -24,7 +25,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class ActorAdaptador(private val lista_actors: MutableList<Actor>) : RecyclerView.Adapter<ActorAdaptador.ActorViewHolder>() {
+class ActorAdaptador(
+    private val lista_actors: MutableList<Actor>,
+    private val serie: Serie? = null,  // Usamos el parámetro 'serie' para el filtrado
+    private val esFiltrado: Boolean = false  // Controlamos si se debe aplicar el filtro
+) : RecyclerView.Adapter<ActorAdaptador.ActorViewHolder>() {
     private lateinit var contexto: Context
     private var lista_filtrada = lista_actors
 
@@ -93,11 +98,23 @@ class ActorAdaptador(private val lista_actors: MutableList<Actor>) : RecyclerVie
                 )
             }
 
+
             lista_filtrada.removeAt(position)
             db_ref.child("com/example/firabasecrud/actor").child(actor_actual.id!!).removeValue()
             Toast.makeText(contexto, "Actor eliminado", Toast.LENGTH_SHORT).show()
             notifyItemRemoved(position)
             notifyItemRangeChanged(position, lista_filtrada.size)
+        }
+    }
+
+    fun listarActoresDeSerie() {
+
+        Log.d("HOALAAA", serie.toString())
+        if (serie != null) {
+            lista_filtrada = lista_actors.filter { actor ->
+                actor.seriesActor?.split(",")!!.contains(serie.nombre)
+            }.toMutableList()
+            Log.d("LISTAAA", lista_filtrada.toString())
         }
     }
 }

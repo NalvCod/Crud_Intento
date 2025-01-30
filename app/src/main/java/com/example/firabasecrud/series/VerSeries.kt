@@ -36,11 +36,6 @@ class VerSeries : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_ver_series)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
         volver = findViewById(R.id.volver)
         recycler = findViewById(R.id.lista_series)
@@ -50,6 +45,12 @@ class VerSeries : AppCompatActivity() {
         buscar = findViewById(R.id.buscar_serie)
 
         var lista_filtrada = mutableListOf<Serie>()
+
+        adaptador = SerieAdaptador(lista)
+        recycler.adapter = adaptador
+        recycler.setHasFixedSize(true)
+        recycler.layoutManager = LinearLayoutManager(applicationContext)
+
 
         //ordenar
         ordenar.setOnCheckedChangeListener { _, isChecked ->
@@ -88,10 +89,6 @@ class VerSeries : AppCompatActivity() {
                 println(error.message)
             }
         })
-        adaptador = SerieAdaptador(lista)
-        recycler.adapter = adaptador
-        recycler.setHasFixedSize(true)
-        recycler.layoutManager = LinearLayoutManager(applicationContext)
 
         volver.setOnClickListener() {
             val intent = Intent(this, MainActivity::class.java)

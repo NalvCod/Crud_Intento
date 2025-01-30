@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import org.w3c.dom.Text
 
 class MensajeAdaptador(private val lista_mensajes: List<Mensaje>, last_pos: Int) : RecyclerView.Adapter<MensajeAdaptador.MensajeViewHolder>() {
     private lateinit var contexto: Context
@@ -26,11 +27,6 @@ class MensajeAdaptador(private val lista_mensajes: List<Mensaje>, last_pos: Int)
     override fun onBindViewHolder(holder: MensajeViewHolder, position: Int) {
         val item_actual = lista_mensajes[position]
 
-        holder.pendientes.visibility = View.INVISIBLE
-
-        if (last_pos<lista_mensajes.size-1&&last_pos!=1&&last_pos!=100000&&position==last_pos){
-            holder.pendientes.visibility = View.VISIBLE
-        }
 
 
         if(item_actual.id_emisor==item_actual.id_receptor){
@@ -76,6 +72,5 @@ class MensajeAdaptador(private val lista_mensajes: List<Mensaje>, last_pos: Int)
         val imagen_yo: ImageView = itemView.findViewById(R.id.imagen_yo)
         val hora_yo:TextView = itemView.findViewById(R.id.hora_yo)
         val hora_otro:TextView = itemView.findViewById(R.id.hora_otro)
-        val pendientes:ConstraintLayout = itemView.findViewById(R.id.pendientes_mens)
     }
 }

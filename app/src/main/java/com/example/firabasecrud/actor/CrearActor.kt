@@ -63,9 +63,9 @@ class CrearActor : AppCompatActivity() {
             //En caso de que esté algo vacío
             if (binding.nombre.text.isEmpty() || binding.fechaNacimiento.text.isEmpty() || url_imagen == null) {
                 Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show()
-            } else if (!(binding.fechaNacimiento.text.toString().substring(0, 4)
-                    .toInt() in 1901..2024
-            )) {
+            } else if (binding.fechaNacimiento.text.toString().substring(0, 4)
+                    .toInt() !in 1901..2024
+            ) {
                 Toast.makeText(this, "Año de nacimiento no válido", Toast.LENGTH_SHORT).show()
             } else if (Util.existeSerie(lista_actores, binding.nombre.text.toString())) {
                 Toast.makeText(this, "La serie ya existe", Toast.LENGTH_SHORT).show()
