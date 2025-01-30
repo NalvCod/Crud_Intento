@@ -22,68 +22,55 @@ import com.example.firabasecrud.series.SerieAdaptador.SerieViewHolder
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-class ProductorasSeriesAdapter(
-    private val lista_productoras_series: MutableList<Any>,  // Lista que puede contener tanto Productoras como Series
-    private val contexto: Context
-) : RecyclerView.Adapter<ProductorasSeriesAdapter.ProductorasSeriesViewHolder>() {
+class ProductorasSeriesAdapter (private val lista_series: MutableList<Serie>, private val productoraActual: Productora) : RecyclerView.Adapter<ProductorasSeriesAdapter.ProductorasSeriesViewHolder>(){
 
+    private lateinit var contexto: Context
     private lateinit var database: DatabaseReference
+    private var lista_filtrada = lista_series
 
     inner class ProductorasSeriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val miniatura: ImageView = itemView.findViewById(R.id.item_miniatura)
         val nombre: TextView = itemView.findViewById(R.id.item_nombre)
-        val anadirSerie: Button = itemView.findViewById(R.id.anadir_serie)
+        val anadirSerie : Button = itemView.findViewById(R.id.anadir_serie)
         val fecha_estreno: TextView = itemView.findViewById(R.id.fecha_estreno)
         val fecha_fin: TextView = itemView.findViewById(R.id.fecha_finalizacion)
-        val productora: TextView = itemView.findViewById(R.id.nombre_productora)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductorasSeriesViewHolder {
-        val vista_item = LayoutInflater.from(parent.context).inflate(R.layout.item_productora_serie, parent, false)
+        val vista_item = LayoutInflater.from(parent.context).inflate(R.layout.item_serie_actor, parent, false)
+        contexto = parent.context
         database = FirebaseDatabase.getInstance().reference
         return ProductorasSeriesViewHolder(vista_item)
     }
 
     override fun onBindViewHolder(holder: ProductorasSeriesViewHolder, position: Int) {
-        val item = lista_productoras_series[position]
+        val serie_actual = lista_filtrada[position]
+        holder.nombre.text = serie_actual.nombre
+        holder.fecha_estreno.text = serie_actual.fechaInicio
+        holder.fecha_fin.text = serie_actual.fechaFin
+        database = FirebaseDatabase.getInstance().reference
 
-        when (item) {
-            is Serie -> {
-                // Mostrar datos de Serie
-                holder.nombre.text = item.nombre
-                holder.fecha_estreno.text = item.fechaInicio
-                holder.fecha_fin.text = item.fechaFin
-                holder.productora.visibility = View.GONE // No mostrar la productora
-
-                // Cargar imagen de la serie
-                val URL = if (item.url_imagen.isNullOrEmpty()) null else item.url_imagen
-                Glide.with(contexto)
-                    .load(URL)
-                    .apply(Util.opcionesGlide(contexto))
-                    .transition(Util.transicion)
-                    .into(holder.miniatura)
-
-                // Acción para añadir la serie
-                holder.anadirSerie.setOnClickListener {
-                    Toast.makeText(contexto, "Se ha añadido la serie ${item.nombre}", Toast.LENGTH_SHORT).show()
-                    // Aquí podrías agregar la lógica de añadir la serie a una lista de la productora
-                }
-
-            }
-            is Productora -> {
-                // Mostrar datos de Productora
-                holder.nombre.text = item.nombre
-                holder.fecha_estreno.text = item.anhoFundacion
-                holder.fecha_fin.visibility = View.GONE // No mostrar fecha de finalización en la productora
-                holder.anadirSerie.visibility = View.GONE // No mostrar botón de añadir serie
-
-                // Mostrar nombre de la productora
-                holder.productora.text = item.nombre
-
-
-            }
+        val URL:String?=when(serie_actual.url_imagen){
+            ""->null //Para que active imagen de fallback
+            else->serie_actual.url_imagen
         }
+        Log.d("URL",URL.toString())
+
+        Glide.with(contexto)
+            .load(URL)
+            .apply(Util.opcionesGlide(contexto))
+            .transition(Util.transicion)
+            .into(holder.miniatura)
+
+        holder.anadirSerie.setOnClickListener {
+            productoraActual.series += lista_filtrada[position].nombre+","
+            Util.escribirProductora(database, productoraActual.id!!, productoraActual)
+            Toast.makeText(contexto,"Se ha añadido "+serie_actual.nombre+" a "+productoraActual.nombre, Toast.LENGTH_SHORT).show()
+        }
+
+
     }
 
-    override fun getItemCount(): Int = lista_productoras_series.size
+    override fun getItemCount() = lista_filtrada.size
 }

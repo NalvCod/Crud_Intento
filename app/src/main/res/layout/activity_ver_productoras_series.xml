@@ -20,7 +20,10 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
             android:src="@drawable/baseline_arrow_back_ios_24"
+            app:layout_constraintEnd_toStartOf="@+id/titulo"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/titulo" />
 
@@ -29,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="Añadir serie"
+            android:text="Añadir serie a la productora"
             android:textColor="@color/white"
             android:textSize="25dp"
             android:layout_marginTop="20dp"

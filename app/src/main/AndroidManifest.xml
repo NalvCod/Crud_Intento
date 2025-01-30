@@ -13,6 +13,9 @@
         android:theme="@style/Theme.FirabaseCRUD"
         tools:targetApi="31">
         <activity
+            android:name=".productorasSeries.ProductoraDetalle"
+            android:exported="false" />
+        <activity
             android:name=".productorasSeries.VerProductorasSeries"
             android:exported="false" />
         <activity

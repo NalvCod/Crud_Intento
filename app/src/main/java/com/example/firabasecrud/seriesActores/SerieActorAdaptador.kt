@@ -72,7 +72,4 @@ class SerieActorAdaptador (private val lista_series: MutableList<Serie>, private
     }
 
     override fun getItemCount() = lista_filtrada.size
-
-
-
 }
